@@ -1,0 +1,62 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <RootNamespace>HelloWorldDesktopWinUI3CS</RootNamespace>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <Platforms>AnyCPU;x86;x64</Platforms>
+    <SelfContained>true</SelfContained>
+    <RuntimeIdentifiers>win-x86;win-x64</RuntimeIdentifiers>
+    <RuntimeIdentifier>win-$(Platform)</RuntimeIdentifier>
+    <MsAppxPackageTargets>$(MSBuildThisFileDirectory)Net5_WinUI_Fixup.Targets</MsAppxPackageTargets>
+    <CsWinRTIncludes>RuntimeComponent1</CsWinRTIncludes>
+    <TargetPlatformVersion>10.0.18362.0</TargetPlatformVersion>
+    <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
+    <TargetPlatformMinVersion>10.0.17134.0</TargetPlatformMinVersion>
+
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Manifest Include="$(ApplicationManifest)" />
+    <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
+    <PackageReference Include="PInvoke.User32" Version="0.6.49" />
+    
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.0.2" />
+    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201020.11-CI" GeneratePathProperty="true" />
+    <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref">
+      <TargetingPackVersion>10.0.18362.10</TargetingPackVersion>
+      <RuntimeFrameworkVersion>10.0.18362.10</RuntimeFrameworkVersion>
+    </FrameworkReference>
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Remove="App.xaml" />
+    <None Remove="MainWindow.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\RuntimeComponent1\RuntimeComponent1.vcxproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Update="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <CsWinRTIncludes>TestComponent;TestComponentCSharp</CsWinRTIncludes>
+    <!--PkgMicrosoft_WinUI is set in in obj\*.csproj.nuget.g.props with TargetFramework condition, doesn't support multi-targeting-->
+    <PkgMicrosoft_WinUI Condition="'$(PkgMicrosoft_WinUI)'==''">$([MSBuild]::NormalizeDirectory('$(NuGetPackageRoot)', 'microsoft.winui', '$(MicrosoftWinUIVersion)'))</PkgMicrosoft_WinUI>
+  </PropertyGroup>
+  <ItemGroup>
+    <!--Explicitly reference WinUI winmds from TFM uap10.0-->
+    <CsWinRTInputs Include="$(PkgMicrosoft_WinUI)/**/*.winmd" />
+  </ItemGroup>
+
+</Project>

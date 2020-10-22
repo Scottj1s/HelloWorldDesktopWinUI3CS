@@ -1,0 +1,24 @@
+﻿<Window
+  x:Class="HelloWorldDesktopWinUI3CS.MainWindow"
+  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+  xmlns:local="using:HelloWorldDesktopWinUI3CS"
+  xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+  xmlns:custom="using:RuntimeComponent1"
+      mc:Ignorable="d">
+
+    <StackPanel x:Name="spanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
+        <ContentDialog x:Name="contentDialog"
+                       Title="Loaded modules"
+                       CloseButtonText="OK">
+            <ScrollViewer MaxHeight="800">
+                <TextBlock   x:Name="cdTextBlock" TextWrapping="Wrap" />
+            </ScrollViewer>
+        </ContentDialog>
+        <!--<custom:UserControl/>-->
+
+
+    </StackPanel>
+</Window>
