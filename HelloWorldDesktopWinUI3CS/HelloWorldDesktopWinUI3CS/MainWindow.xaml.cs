@@ -17,11 +17,11 @@ using System.Runtime.InteropServices;
 
 // The Blank Window item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
-namespace WinRT
-{
-    public class WeakReference<T> : global::System.WeakReference<T>
-    { }
-}
+//namespace WinRT
+//{
+//    public class WeakReference<T> : global::System.WeakReference<T>
+//    { }
+//}
 
 
 namespace HelloWorldDesktopWinUI3CS

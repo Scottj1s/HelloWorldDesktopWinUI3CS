@@ -21,9 +21,9 @@
     <Manifest Include="$(ApplicationManifest)" />
     <PackageReference Include="Microsoft.VCRTForwarders.140" Version="1.0.6" />
     <PackageReference Include="PInvoke.User32" Version="0.6.49" />
-    
-    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.0.2" />
-    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201020.11-CI" GeneratePathProperty="true" />
+
+    <PackageReference Include="Microsoft.Windows.CsWinRT" Version="1.0.2-prerelease.201021.1" />
+    <PackageReference Include="Microsoft.WinUI" Version="3.0.0-preview3.201022.3" GeneratePathProperty="true" />
     <FrameworkReference Update="Microsoft.Windows.SDK.NET.Ref">
       <TargetingPackVersion>10.0.18362.10</TargetingPackVersion>
       <RuntimeFrameworkVersion>10.0.18362.10</RuntimeFrameworkVersion>
@@ -50,7 +50,7 @@
   </ItemGroup>
 
   <PropertyGroup>
-    <CsWinRTIncludes>TestComponent;TestComponentCSharp</CsWinRTIncludes>
+    <CsWinRTIncludes>RuntimeComponent1</CsWinRTIncludes>
     <!--PkgMicrosoft_WinUI is set in in obj\*.csproj.nuget.g.props with TargetFramework condition, doesn't support multi-targeting-->
     <PkgMicrosoft_WinUI Condition="'$(PkgMicrosoft_WinUI)'==''">$([MSBuild]::NormalizeDirectory('$(NuGetPackageRoot)', 'microsoft.winui', '$(MicrosoftWinUIVersion)'))</PkgMicrosoft_WinUI>
   </PropertyGroup>

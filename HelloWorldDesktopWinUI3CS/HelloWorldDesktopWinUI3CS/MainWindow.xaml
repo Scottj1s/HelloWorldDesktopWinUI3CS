@@ -17,8 +17,7 @@
                 <TextBlock   x:Name="cdTextBlock" TextWrapping="Wrap" />
             </ScrollViewer>
         </ContentDialog>
-        <!--<custom:UserControl/>-->
-
+        <custom:UserControl/>
 
     </StackPanel>
 </Window>
