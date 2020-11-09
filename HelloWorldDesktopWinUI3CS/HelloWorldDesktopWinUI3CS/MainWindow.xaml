@@ -8,16 +8,37 @@
   xmlns:custom="using:RuntimeComponent1"
       mc:Ignorable="d">
 
-    <StackPanel x:Name="spanel" Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="myButton" Click="myButton_Click">Click Me</Button>
-        <ContentDialog x:Name="contentDialog"
-                       Title="Loaded modules"
-                       CloseButtonText="OK">
-            <ScrollViewer MaxHeight="800">
-                <TextBlock   x:Name="cdTextBlock" TextWrapping="Wrap" />
-            </ScrollViewer>
-        </ContentDialog>
-        <custom:UserControl/>
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel.Resources>
+            <local:UriToStringConverter x:Name="UriToStringConverter"/>
+        </StackPanel.Resources>
 
+        <!--
+        Can't get markup bindings to work:
+        
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" BorderBrush="Black">
+            <TextBlock x:Name="TestBlock" Text="{Binding TestBox.Text}"/>
+            <TextBox x:Name="TestBox" Text="Test"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" BorderBrush="Black">
+            <TextBlock Text="Link: " />
+            <TextBlock x:Name="LinkBlock" Text="{Binding ElementName=MyControl, Path=Link, Mode=OneWay}"/>
+            <TextBox x:Name="LinkBox" Text="{Binding ElementName=MyControl, Path=Link, Mode=TwoWay, Converter={StaticResource UriToStringConverter}}"/>
+        </StackPanel>
+        -->
+
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" BorderBrush="Black">
+            <TextBlock x:Name="TestBlock"/>
+            <TextBox x:Name="TestBox"/>
+        </StackPanel>
+        
+        <StackPanel Orientation="Horizontal" Margin="0,5,0,5" BorderBrush="Black">
+            <TextBlock x:Name="SourceBlock"/>
+            <TextBox x:Name="SourceBox"/>
+        </StackPanel>
+
+        <custom:UserControl x:Name="MyControl"/>
+        
     </StackPanel>
 </Window>

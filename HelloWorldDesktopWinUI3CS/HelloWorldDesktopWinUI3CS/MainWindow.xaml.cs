@@ -15,17 +15,45 @@ using Microsoft.UI.Xaml.Navigation;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-// The Blank Window item template is documented at https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
-
-//namespace WinRT
-//{
-//    public class WeakReference<T> : global::System.WeakReference<T>
-//    { }
-//}
-
 
 namespace HelloWorldDesktopWinUI3CS
 {
+    public class UriToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, String language)
+        {
+            return value.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, String language)
+        {
+            Uri newUri;
+            string uriString = value as string;
+            try
+            {
+                Uri.TryCreate(uriString, UriKind.RelativeOrAbsolute, out newUri);
+                return newUri;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+    }
+
+    public class StringToStringConverter : IValueConverter
+    {
+        public object Convert(object value, Type targetType, object parameter, String language)
+        {
+            return value.ToString();
+        }
+
+        public object ConvertBack(object value, Type targetType, object parameter, String language)
+        {
+            return value.ToString();
+        }
+    }
+
     /// <summary>
     /// An empty window that can be used on its own or navigated to within a Frame.
     /// </summary>
@@ -35,33 +63,24 @@ namespace HelloWorldDesktopWinUI3CS
         {
             this.InitializeComponent();
 
-            //RuntimeComponent1.UserControl userControl = new RuntimeComponent1.UserControl();
+            RuntimeComponent1.UserControl userControl = new RuntimeComponent1.UserControl();
 
-            //FAIL spanel.Children.Add(userControl);
-        }
+            Binding testBlockBinding = new Binding() { Path = new PropertyPath("Text") };
+            TestBlock.DataContext = MyControl;
+            TestBlock.SetBinding(TextBlock.TextProperty, testBlockBinding);
 
-        private async void myButton_Click(object sender, RoutedEventArgs e)
-        {
-            myButton.Content = "Clicked";
+            Binding textBoxBinding = new Binding() { Path = new PropertyPath("Text"), Mode = BindingMode.TwoWay, Converter = new StringToStringConverter() };
+            TestBox.DataContext = MyControl;
+            TestBox.SetBinding(TextBox.TextProperty, textBoxBinding);
 
-            //IntPtr hwnd = PInvoke.User32.GetActiveWindow();
-            IntPtr hwnd = (App.Current as App).MainWindowWindowHandle;
-            PInvoke.User32.ShowWindow(hwnd, PInvoke.User32.WindowShowStyle.SW_MAXIMIZE);
+            Binding sourceBlockBinding = new Binding() { Path = new PropertyPath("Source"), Converter = new UriToStringConverter() };
+            SourceBlock.DataContext = MyControl;
+            SourceBlock.SetBinding(TextBlock.TextProperty, sourceBlockBinding);
 
-
-            //var description = new System.Text.StringBuilder();
-            //var process = System.Diagnostics.Process.GetCurrentProcess();
-            //foreach (System.Diagnostics.ProcessModule module in process.Modules)
-            //{
-            //    description.AppendLine(module.FileName);
-            //}
-
-            //cdTextBlock.Text = description.ToString();
-            //contentDialog.XamlRoot = myButton.XamlRoot;
-            //await contentDialog.ShowAsync();
+            Binding sourceBoxBinding = new Binding() { Path = new PropertyPath("Source"), Mode=BindingMode.TwoWay, Converter=new UriToStringConverter() };
+            SourceBox.DataContext = MyControl;
+            SourceBox.SetBinding(TextBox.TextProperty, sourceBoxBinding);
 
         }
-
-
     }
 }

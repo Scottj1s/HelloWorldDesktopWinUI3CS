@@ -1,9 +1,16 @@
 namespace RuntimeComponent1
 {
+    [bindable]
     [default_interface]
-    runtimeclass UserControl : Microsoft.UI.Xaml.Controls.UserControl
+    runtimeclass UserControl : Microsoft.UI.Xaml.Controls.UserControl //, Microsoft.UI.Xaml.Data.INotifyPropertyChanged, Microsoft.UI.Xaml.Data.ICustomPropertyProvider
     {
         UserControl();
         Int32 MyProperty;
+
+        Windows.Foundation.Uri Source;
+        static Microsoft.UI.Xaml.DependencyProperty SourceProperty{ get; };
+
+        String Text;
+        static Microsoft.UI.Xaml.DependencyProperty TextProperty{ get; };
     }
 }

@@ -8,6 +8,7 @@ namespace winrt::RuntimeComponent1::implementation
     {
         Class() = default;
 
+        int32_t _myProperty{};
         int32_t MyProperty();
         void MyProperty(int32_t value);
     };
